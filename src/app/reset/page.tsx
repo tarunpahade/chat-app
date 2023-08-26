@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useRouter } from 'next/router'
 
 
 export default function VerifyEmail() {
@@ -22,6 +23,7 @@ export default function VerifyEmail() {
             try {
                 const res = await axios.post('/api/users/resetpassword', { token, password })
                 console.log(res);
+window.location.href='/login'
                 if (res.data.error === 'Token Expired') {
                     seterror(true)
                 }
