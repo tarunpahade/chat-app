@@ -25,14 +25,9 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: Record<"email" | "password", string> | undefined) {
-        //   const res = await fetch("/api/users/login", {
-        //     method: 'POST',
-        //     body: JSON.stringify(credentials),
-        //     headers: { "Content-Type": "application/json" }
-        //   })
-        //   const user = await res.json()
+       
         if (!credentials || !credentials.email || !credentials.password) {
-            return null; // Handle the case where email or password is missing
+            return null; 
           }
 
         const email = credentials?.email as string;
