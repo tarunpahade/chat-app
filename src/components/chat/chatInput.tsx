@@ -1,22 +1,31 @@
-// components/ChatInput.js
-const ChatInput = ({ value, onChange, sendMsg }:any) => {
+'use client'
+
+import { Send } from "react-feather";
+
+const ChatInput = ({ value, onChange, sendMsg ,disabled}:any) => {
+
     return (
-        <div className="absolute bottom-5  p-2 flex items-center border-t border-gray-200 " >
+        <div className="absolute  bottom-5 pl-10 p-2 flex  w-[80%] items-center" >
             <input
                 type="text"
                 value={value}
                 onChange={onChange}
                 // style={{ width: '90%' }}
                 placeholder="Type your message..."
-                className="flex-grow p-2 w-96 rounded-l border border-gray-300 focus:outline-none "
+                className="flex-grow p-2 w-[90%] text-black rounded-l border bg-white border-gray-300 focus:outline-none "
+                onKeyDownCapture={(e) => {
+                    if (e.key === "Enter") {
+                      sendMsg();
+                    }
+                  }}
             />
             <button
+            disabled={disabled}
                 type="button"
-                className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-700 focus:outline-none"
+                className="bg-blue-700 ml-3 px-4 dark:text-white py-2 rounded-r hover:bg-blue-700 focus:outline-none"
                 onClick={sendMsg}
-
             >
-                Send
+                <Send className="" size={20} />
             </button>
         </div>
     );

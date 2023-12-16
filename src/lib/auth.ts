@@ -1,21 +1,16 @@
-import { NextAuthOptions, getServerSession } from "next-auth";
+import {
+  NextAuthOptions,
+} from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
 import Users from "@/dbconfig/dbconfig";
-import { useSession ,} from "next-auth/react";
-import { redirect, useRouter} from "next/navigation";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.TOKEN_SECRET!,
   providers: [
     CredentialsProvider({
       name: "Sign In",
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: {
           label: "Email",
@@ -24,56 +19,32 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: Record<"email" | "password", string> | undefined) {
-       
+      async authorize(
+        credentials: Record<"email" | "password", string> | undefined
+      ) {
         if (!credentials || !credentials.email || !credentials.password) {
-            return null; 
-          }
+          return null;
+        }
 
         const email = credentials?.email as string;
         const password = credentials?.password as string;
-console.log(email,password);
+        console.log(email, password);
 
-        
         const user = await Users.findOne({ email });
 
         if (!user) {
           return null;
         }
-        console.log("user already exists", user, email);
 
-        //check password is correct
+
         const vaildPassword = await bcryptjs.compare(password, user.password);
         console.log(vaildPassword);
 
-        if (!vaildPassword) {
-     
-
-          return null;
+        if (vaildPassword) {
+          return user;
         }
-        console.log(user);
 
-        //create token data
-        const tokenData = {
-          id: user._id,
-          username: user.username,
-          email: user.email,
-        };
-        console.log("this is token data", tokenData);
-
-        // //create tokens
-        const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
-          expiresIn: "1d",
-        });
-        console.log(token, "this is token");
-
-        // Return null if user data could not be retrieved
-        if(vaildPassword){
-
-
-            return tokenData
-        }
-      return null
+        return null;
       },
     }),
     GoogleProvider({
@@ -81,9 +52,41 @@ console.log(email,password);
       clientSecret: process.env.GOOGLE_SECRET as string,
     }),
   ],
+  callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        try {
+          const { id, email, image } = user;
 
+          const users = await Users.findOne({ email: email });
+
+          if (users === null) {
+            const salt = await bcryptjs.genSalt(10);
+            const hashedPassword =await bcryptjs.hash(email!, salt);
+            
+        
+
+            console.log("hashedPassword", hashedPassword);
+
+            const newUser = {
+              username: email,
+              email,
+              password: hashedPassword,
+              imageUrl:image
+                
+            };
+            const savedUser = await Users.insertOne(newUser);
+            return savedUser;
+          }
+
+          return user;
+        } catch (error: any) {
+          console.log(error.response.data);
+        }
+      }
+    },
+  },
   session: {
     strategy: "jwt",
   },
 };
-

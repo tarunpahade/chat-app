@@ -85,14 +85,14 @@ export default function Login() {
 
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
                             Forget Password
                         </h2>
                     </div>
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <form action="" className="space-y-6">
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="email" className="block text-sm font-medium leading-6">
                                     Email address
                                 </label>
 
@@ -104,7 +104,7 @@ export default function Login() {
                                         autoComplete="email"
                                         required
                                         onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -131,7 +131,7 @@ export default function Login() {
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
 
-                        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
                             Sign in to your account
                         </h2>
                         <h1 className="text-center">{loading ? "Loading..." : "Login"}</h1>
@@ -141,7 +141,7 @@ export default function Login() {
                         <form className="space-y-6" onSubmit={onLogin}>
 
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="email" className="block text-sm font-medium leading-6">
                                     Email address
                                 </label>
 
@@ -153,14 +153,14 @@ export default function Login() {
                                         autoComplete="email"
                                         required
                                         onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                        className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block p-2 w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
 
                             <div>
                                 <div className="flex items-center justify-between">
-                                    <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label htmlFor="password" className="block text-sm font-medium leading-6">
                                         Password
                                     </label>
                                     <div className="text-sm">
@@ -177,7 +177,7 @@ export default function Login() {
                                         autoComplete="current-password"
                                         required
                                         onChange={(e) => setUser({ ...user, password: e.target.value })}
-                                        className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block p-2 w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -204,7 +204,7 @@ export default function Login() {
                                 redirect('/chat')
                             }
                            
-                        }} className=" mt-10 w-full flex items-center text-black-700 dark:text-gray-900 hover:dark:text-gray-100 justify-center gap-x-3 text-sm sm:text-base  bg-white-900 dark:border-gray-700 dark:hover:bg-gray-800 rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5">
+                        }} className=" mt-10 w-full flex items-center  hover:dark:text-gray-100 justify-center gap-x-3 text-sm sm:text-base  bg-white-900 dark:border-gray-700 dark:hover:bg-gray-800 rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5">
                             <svg className="w-5 h-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_3033_94454)">
                                     <path d="M23.766 12.2764C23.766 11.4607 23.6999 10.6406 23.5588 9.83807H12.24V14.4591H18.7217C18.4528 15.9494 17.5885 17.2678 16.323 18.1056V21.1039H20.19C22.4608 19.0139 23.766 15.9274 23.766 12.2764Z" fill="#4285F4" />
@@ -227,7 +227,8 @@ export default function Login() {
                         </a>
 
                     </div>
-                </div>)}
+                </div>
+                )}
         </>
     )
 }

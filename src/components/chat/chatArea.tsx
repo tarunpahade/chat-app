@@ -1,37 +1,44 @@
+'use client'
+import { ObjectId } from "mongodb";
 import Navbar from "./nav";
 
 
 interface ChatAreaProps {
     messages: { text: string; isUser: boolean }[]; // Define the type of messages
-    profile: {  userName: string;
+    profile: {  username: string;
         email: string;
-        role: string;
         imageUrl: string;
         lastSeen?: string; 
-        lastSeenDateTime?: string;};
+        lastSeenDateTime?: string;
+    
+    };
+    onBackPress:any
 }
-const ChatArea: React.FC<ChatAreaProps> = ({ messages,profile }) => {
-    const {userName,imageUrl}=profile
+const ChatArea: React.FC<ChatAreaProps> = ({ messages,profile,onBackPress }) => {
+    const {username,imageUrl}=profile
     
     return (
-        <div className="flex-grow h-screen  overflow-y-auto bg-gray-100" >
-            <Navbar userName={userName} profileImg={imageUrl}></Navbar>
+        <div className="flex-grow h-screen  " >
+            <Navbar userName={username} profileImg={imageUrl} onBackPress={onBackPress}></Navbar>
             {/* Display chat messages */}
+            <div className="max-h-[80%] overflow-y-auto ">
             {messages.map((message, index) => (
                 <div   key={index} style={{width:'100%',height:'8%'}}>
                     <div
                       
-                        className={`mb-2 ${message.isUser
-                                ? 'bg-blue-500 text-white rounded-tr rounded-br float-right p-3 clear-right m-5'
-                                : 'bg-gray-300 text-black rounded-tl rounded-bl float-left p-3 clear-left m-5'
+                        className={`mb-2 bg-gray-200 border  ${message.isUser
+                                ? 'max-w-[14em]  rounded-tr rounded-br float-right p-3 clear-right m-5 text-black'
+                                : 'max-w-[14em] rounded-tl rounded-bl float-left p-3 clear-left m-5 text-black'
                             }`}
                     >
-                        {message.text}
+
+                       <h2> {message.text}</h2>
                         <div className="clear-both"></div>
 
                     </div>
                 </div>
             ))}
+            </div>
         </div>
     );
 };

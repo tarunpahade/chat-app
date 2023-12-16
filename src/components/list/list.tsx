@@ -1,33 +1,27 @@
+'use client'
 import Image from "next/image";
+import Header from "../header/header";
+import { People } from "@/app/chat/page";
 
-interface People {
-  userName: string;
-  email: string;
-  role: string;
-  imageUrl: string;
-  lastSeen?: string; // Make it optional
-  lastSeenDateTime?: string;
-}
 
 interface ListProps {
   data: People[];
   onPress: any;
+  showPopup: any
+
 }
-export const List: React.FC<ListProps> = ({ data,onPress }) => {
+export const List: React.FC<ListProps> = ({ data, onPress, showPopup }) => {
   return (
-    <ul role="list" className="divide-y divide-gray-100">
-         <div  style={{ display:'flex'}} className=" absolute items-center justify-center  inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0  ">
-      <button style={{ width: '90%' }} className="bg-white m-5 mb-5 mt-5 ml-5 dark:bg-gray-900  dark:border-gray-700 dark:hover:bg-gray-800 rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5">
-        <p className=" " style={{ color: "#fff" }}>
-          New Chat
-        </p>
-      </button>
+    <ul role="list" className="w-full  divide-gray-100">
+      <div style={{ display: 'flex' }} className="md:block hidden  items-center justify-center   z-20  px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0  ">
+        <Header showPopup={showPopup} />
+
       </div>
       {data.map((person: People) => (
         <li
           key={Math.random() * 50000}
-          className="flex md:none justify-between pr-5 gap-x-6 py-5  hover:bg-gray-200 transition duration-200 ease-in-out"
-          onClick={()=>{onPress(person)}}
+          className="flex pl-4  justify-between pr-5 gap-x-6 py-5 hover:bg-slate-900 hover:text-white  transition duration-200 ease-in-out"
+          onClick={() => { onPress(person) }}
         >
           <div className="flex min-w-0 gap-x-4">
             <Image
@@ -38,15 +32,15 @@ export const List: React.FC<ListProps> = ({ data,onPress }) => {
               alt=""
             />
             <div className="min-w-0 flex-auto">
-              <p className="text-sm cursor-pointer font-semibold leading-6 text-gray-900">
-                {person.userName}
+              <p className="text-sm cursor-pointer font-semibold leading-6  ">
+                {person.email.split('@')[0]}
               </p>
               <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                 {person.email}
               </p>
             </div>
           </div>
-          <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+          <div className="hidden shrink-0 md:flex sm:flex-col sm:items-end">
             <p className="text-sm leading-6 text-gray-900"></p>
             {person.lastSeen ? (
               <p className="mt-1 text-xs leading-5 md:hidden text-gray-500">
