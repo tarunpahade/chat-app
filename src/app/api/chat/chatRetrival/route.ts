@@ -1,7 +1,7 @@
 import { Conversation, Messages } from "@/dbconfig/dbconfig";
 import { NextResponse } from "next/server";
 
-export async function POST(request: NextResponse, response: NextResponse) {
+export async function POST(request: NextResponse) {
   try {
     const data = await request.json();
     console.log(data);
